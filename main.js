@@ -1,12 +1,14 @@
 const express = require("express");
 const https = require("https");
 const app = express();
+
 const bodyParser = require("body-parser");
 
 // function calculateScore(easy, med, hard) {
 //   const score = 0.75 * easy + 1.25 * med + 2 * hard;
 //   return score;
 // }
+app.set("view engine", "ejs");
 var dict = {};
 
 const url = "https://leetcode-stats-api.herokuapp.com/";
@@ -14,7 +16,7 @@ const url = "https://leetcode-stats-api.herokuapp.com/";
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.render("index", { winner: "" });
 });
 
 app.post("/", function (req, res) {
@@ -58,15 +60,7 @@ app.post("/", function (req, res) {
     let loserScore = dict[usernames[0]] > dict[usernames[1]] ? 1 : 0;
     // console.log(winnerScore);
 
-    res.send(
-      usernames[winnerScore] +
-        " is the top g with a total score of " +
-        dict[usernames[winnerScore]] +
-        "  //  " +
-        usernames[loserScore] +
-        " is the bottom g with a total score of " +
-        dict[usernames[loserScore]]
-    );
+    res.render("index", { winner: winnerScore });
   }
   setTimeout(printData, 4000);
 });
