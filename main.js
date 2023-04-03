@@ -64,7 +64,7 @@ app.post("/", function (req, res) {
     let loserScore = dict[usernames[0]] > dict[usernames[1]] ? 1 : 0;
     // console.log(winnerScore);
 
-    // res.render("index", { winner: winnerScore });
+    res.render("index", { winner: winnerScore });
   }
   setTimeout(printData, 4000);
 });
