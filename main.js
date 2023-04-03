@@ -16,8 +16,8 @@ const url = "https://leetcode-stats-api.herokuapp.com/";
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
-  // res.render("index", { winner: "" });
-  res.send("HI");
+  res.render("index", { winner: "" });
+  // res.send("HI");
 });
 
 app.post("/", function (req, res) {
@@ -61,7 +61,7 @@ app.post("/", function (req, res) {
     let loserScore = dict[usernames[0]] > dict[usernames[1]] ? 1 : 0;
     // console.log(winnerScore);
 
-    res.render("index", { winner: winnerScore });
+    // res.render("index", { winner: winnerScore });
   }
   setTimeout(printData, 4000);
 });
