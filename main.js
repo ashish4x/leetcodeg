@@ -24,7 +24,7 @@ const url = "https://leetcode-stats-api.herokuapp.com/";
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", function (req, res) {
-  res.render("index", { winner: "" });
+  res.render("index", { winner: "", loser: "" });
   // res.send("HI");
 });
 
@@ -81,14 +81,22 @@ app.post("/", function (req, res) {
     if (apiCheck[0] === false || apiCheck[1] === false) {
       let errorMsg =
         "Couldn't fetch data. Please check the usernames and try again. :)";
-      res.render("index", { winner: errorMsg });
+      res.render("index", { winner: errorMsg, loser: "" });
     } else {
       let result =
         usernames[winnerScore] +
-        " is the TOP G with a whooping total score of " +
+        " : " +
         dict[usernames[winnerScore]] +
-        " 🏆";
-      res.render("index", { winner: result });
+        " XP" +
+        "🏆";
+
+      let lresult =
+        usernames[loserScore] +
+        " : " +
+        dict[usernames[loserScore]] +
+        " XP" +
+        "💩";
+      res.render("index", { winner: result, loser: lresult });
       // dict.clear();
     }
   }
