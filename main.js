@@ -13,6 +13,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 // app.use(express.static(path.join(__dirname, "")))
 var dict = {};
+var apiCheck = [true, true];
 
 const url = "https://leetcode-stats-api.herokuapp.com/";
 
@@ -40,11 +41,18 @@ app.post("/", function (req, res) {
       https.get(fetchUrl, function (res) {
         res.on("data", function (data) {
           let json = JSON.parse(data);
+          if (json.status === "error") {
+            apiCheck[i] = false;
+            console.log("Username doesn't exist");
+          } else {
+            apiCheck[i] = true;
+          }
           let easy = json.easySolved;
           let med = json.mediumSolved;
           let hard = json.hardSolved;
           // console.log(easy, med, hard);
           let scorePush = 0.75 * easy + 1.25 * med + 2 * hard;
+
           console.log(fetchUrl);
           console.log(scorePush);
           dict[usernames[i]] = scorePush;
@@ -59,12 +67,26 @@ app.post("/", function (req, res) {
   fetchData();
 
   function printData() {
-    // console.log(dict[usernames[0]], dict[usernames[1]]);
-    let winnerScore = dict[usernames[0]] > dict[usernames[1]] ? 0 : 1;
-    let loserScore = dict[usernames[0]] > dict[usernames[1]] ? 1 : 0;
+    console.log(dict[usernames[0]], dict[usernames[1]]);
+    console.log(usernames[0], usernames[1]);
+    var winnerScore = dict[usernames[0]] > dict[usernames[1]] ? 0 : 1;
+    var loserScore = dict[usernames[0]] > dict[usernames[1]] ? 1 : 0;
+
     // console.log(winnerScore);
 
-    res.render("index", { winner: winnerScore });
+    if (apiCheck[0] === false || apiCheck[1] === false) {
+      let errorMsg =
+        "Couldn't fetch data. Please check the usernames and try again. :)";
+      res.render("index", { winner: errorMsg });
+    } else {
+      let result =
+        usernames[winnerScore] +
+        " is the TOP G with a whooping total score of " +
+        dict[usernames[winnerScore]] +
+        "🏆";
+      res.render("index", { winner: result });
+      // dict.clear();
+    }
   }
   setTimeout(printData, 4000);
 });
