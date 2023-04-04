@@ -44,8 +44,10 @@
         function myFunction() {
             var x = document.getElementById("loader");
             var y = document.getElementById("mainBtn")
+            var z = document.getElementById("winnerTxt")
             x.style.display = "inline";
             y.style.display = "none";
+            z.style.display = "none";
         }
 
     </script>
@@ -119,7 +121,7 @@
         </div>
 
     </div>
-    <div class="text-center text-2xl font-extrabold">
+    <div class="text-center text-2xl font-semibold" id="winnerTxt">
         <h1>
             <%= winner %>
 
