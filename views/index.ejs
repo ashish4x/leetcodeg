@@ -43,7 +43,9 @@
 
         function myFunction() {
             var x = document.getElementById("loader");
+            var y = document.getElementById("mainBtn")
             x.style.display = "inline";
+            y.style.display = "none";
         }
 
     </script>
@@ -93,7 +95,7 @@
 
 
                 <div class="text-center">
-                    <button onclick="myFunction()" class=" hover:shadow-form rounded-md bg-[#6A64F1] py-2 px-3 text-center text-base font-semibold
+                    <button onclick="myFunction()" id="mainBtn" class=" hover:shadow-form rounded-md bg-[#6A64F1] py-2 px-3 text-center text-base font-semibold
                         text-white outline-none">
                         <span class="text-base"> Lessgo</span>
                     </button>
