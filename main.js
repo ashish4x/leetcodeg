@@ -9,9 +9,13 @@ const bodyParser = require("body-parser");
 //   const score = 0.75 * easy + 1.25 * med + 2 * hard;
 //   return score;
 // }
+
+//setting middleware
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 // app.use(express.static(path.join(__dirname, "")))
+app.use(express.static(__dirname + "/static"));
 var dict = {};
 var apiCheck = [true, true];
 
