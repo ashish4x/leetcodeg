@@ -87,7 +87,7 @@ app.post("/", function (req, res) {
         usernames[winnerScore] +
         " is the TOP G with a whooping total score of " +
         dict[usernames[winnerScore]] +
-        "🏆";
+        " 🏆";
       res.render("index", { winner: result });
       // dict.clear();
     }
